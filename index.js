@@ -20,11 +20,12 @@ app.engine('.hbs', exphbs({
     layoutsDir: path.join(__dirname + '/views/', 'layout'),
     partialsDir: path.join(__dirname + '/views/', 'partials'),
     extname: '.hbs',
-    // helpers: require('./lib/handlebars')
+    helpers: require('./helpers/handlebars') // Los helpers se comunican directamente con las vistas .hbs antes de su salida de dicha vista
 }));
 app.set('view engine', 'hbs');
 
 /* Middlewares */
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({
     secret: 'secret',
@@ -37,7 +38,7 @@ app.use(session({
 app.use('/', router());
 
 /* Static Files */
-app.use(express.static(path.join(__dirname, './public/')));
+app.use(express.static(path.join(__dirname, './public')));
 
 /* Starting The Server */
 app.listen(process.env.PORT, () => {
