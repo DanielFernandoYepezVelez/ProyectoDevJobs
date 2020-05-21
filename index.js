@@ -1,5 +1,6 @@
 /* Requires */
 require('./config/enviroment');
+require('./config/database');
 
 /* Dependences */
 const path = require('path');
@@ -7,6 +8,8 @@ const express = require('express');
 const router = require('./routes/index');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 /* Initializations */
 const app = express();
@@ -22,7 +25,13 @@ app.engine('.hbs', exphbs({
 app.set('view engine', 'hbs');
 
 /* Middlewares */
-
+app.use(cookieParser());
+app.use(session({
+    secret: 'secret',
+    key: 'firmandoLaSession',
+    resave: false,
+    saveUninitialized: false
+}));
 
 /* Routes */
 app.use('/', router());

@@ -1,19 +1,28 @@
-/* =======================
-            PORT
-   =======================
- */
+/* 
+=======================
+        PORT
+=======================
+*/
 process.env.PORT = process.env.PORT || 3000;
 
-/* =======================
-        ENVIROMENT
-   =======================
- */
+/* 
+=======================
+      ENVIROMENT
+=======================
+*/
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-let urlDB;
+/* 
+==========================
+  Base De Datos
+==========================
+*/
+let urlDB = '';
 
 if (process.env.NODE_ENV === 'development') {
-    urlDB =
+    urlDB = 'mongodb://localhost:27017/devJobs';
 } else {
     urlDB = process.env.MONGO_URI
 }
+
+process.env.urlDB = urlDB;
